@@ -1,22 +1,18 @@
+const express = require("express");
+
 module.exports = app => {
-  const certificates = require("../controllers/certificates.controller.js");
+  const certificatesController = require("../controllers/certificates.controller.js");
 
-  var router = require("express").Router();
+  const router = express.Router();
 
-  // Create a new Certificates
-  router.post("/", certificates.create);
+  // Routes for Certificate operations
+  router
+    .post("/", certificatesController.create)
+    .get("/", certificatesController.findAll)
+    .get("/:id", certificatesController.findOne)
+    .put("/:id", certificatesController.update)
+    .delete("/:id", certificatesController.delete);
 
-  // Retrieve all Certificates
-  router.get("/", certificates.findAll);
-
-  // Retrieve a single Certificates with id
-  router.get("/:id", certificates.findOne);
-
-  // Update a Certificates with id
-  router.put("/:id", certificates.update);
-
-  // Delete a Certificates with id
-  router.delete("/:id", certificates.delete);
-
+  // Attach the router to the application
   app.use('/api/certificates', router);
 };
