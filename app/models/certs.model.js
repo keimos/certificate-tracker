@@ -1,12 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
   const Cert = sequelize.define("certificates", {
     cname: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false, // Ensures cname cannot be null
     },
     vp: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false, // Ensures vp cannot be null
     },
     application: {
+      type: Sequelize.STRING,
+      allowNull: true, // Explicitly specifies that application can be null
+    },
+    subject: {
       type: Sequelize.STRING
     },
     issuer: {
@@ -16,6 +22,4 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     }
   });
-
-  return Cert;
 };
